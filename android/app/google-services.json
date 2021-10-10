@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "593452113980",
+    "project_id": "elearn-f516b",
+    "storage_bucket": "elearn-f516b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:593452113980:android:e16593628f168a15cb6339",
+        "android_client_info": {
+          "package_name": "com.zero.e_learn"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "593452113980-lrnol4v99adt4etds4nbikae0psdtsse.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAKDrsbDyDUUtNkMLYYxAM-rO_DGz5m16w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "593452113980-lrnol4v99adt4etds4nbikae0psdtsse.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
