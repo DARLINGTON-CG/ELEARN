@@ -16,7 +16,7 @@ class Header extends StatelessWidget {
             style: GoogleFonts.alegreya(
                 fontSize: 22,
                 fontWeight: FontWeight.bold,
-                color: Color(0xFFE7DFE7)),
+                color: Color(0xFFFFFFFF)),
           ),
           SizedBox(
             height: 5,

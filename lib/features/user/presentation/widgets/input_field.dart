@@ -8,6 +8,7 @@ class InputField extends StatelessWidget {
   final bool round;
   final func;
   final bool valid;
+  final VoidCallback? forgotFunc;
 
   const InputField(
       {Key? key,
@@ -15,7 +16,11 @@ class InputField extends StatelessWidget {
       required this.obscureTxt,
       required this.func,
       required this.valid,
-      required this.round})
+      required this.round,
+      this.forgotFunc = null
+      }
+     
+      )
       : super(key: key);
 
   @override
@@ -34,9 +39,7 @@ class InputField extends StatelessWidget {
                     //   icon: Icon(Icons.mark_chat_unread_outlined,color:Color(0xFF0051FF)),
                     //   onPressed: () {}),
                     TextButton(
-                        onPressed: () {
-                         
-                        },
+                        onPressed:forgotFunc,
                         child: Text(
                           "FORGOT",
                           style: GoogleFonts.alegreya(

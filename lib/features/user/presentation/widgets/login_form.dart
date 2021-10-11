@@ -1,5 +1,7 @@
 
+import 'package:e_learn/core/page_animation/slide_up_anim.dart';
 import 'package:e_learn/features/app_content/presentation/home/homepage.dart';
+import 'package:e_learn/features/user/presentation/pages/reset_password_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
@@ -61,6 +63,7 @@ class LoginForm extends StatelessWidget {
                   obscureTxt: true,
                   valid: state.password.valid,
                   round: false,
+                  forgotFunc: () => Navigator.of(context).push(SlideUpAnim(page:ResetPasswordPage())),
                   func: (password) =>
                       context.read<LoginCubit>().passwordChanged(password),
                 );
