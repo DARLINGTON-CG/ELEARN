@@ -8,7 +8,7 @@ class InputField extends StatelessWidget {
   final bool round;
   final func;
   final bool valid;
-  
+
   const InputField(
       {Key? key,
       required this.label,
@@ -27,13 +27,37 @@ class InputField extends StatelessWidget {
       onChanged: func,
       decoration: InputDecoration(
           fillColor: Colors.grey.withOpacity(0.2),
-          suffixIcon: GestureDetector(
-            child: IconButton(
-                icon: Icon(valid? Icons.check_circle:Icons.cancel, color:valid? Colors.green:Colors.red,),
-                onPressed: () {}),
-            onTap: () {},
-          ),
-          suffixText: obscureTxt ? "FORGOT" : null,
+          suffixIcon: obscureTxt
+              ? Wrap(
+                  children: [
+                    // IconButton(
+                    //   icon: Icon(Icons.mark_chat_unread_outlined,color:Color(0xFF0051FF)),
+                    //   onPressed: () {}),
+                    TextButton(
+                        onPressed: () {
+                         
+                        },
+                        child: Text(
+                          "FORGOT",
+                          style: GoogleFonts.alegreya(
+                              fontSize: 15, color: Color(0xFF0051FF)),
+                        )),
+                    IconButton(
+                        icon: Icon(
+                          valid ? Icons.visibility_off : Icons.visibility_off,
+                          color: valid ? Colors.green : Colors.red,
+                        ),
+                        onPressed: () {}),
+                  ],
+                )
+              : IconButton(
+                  icon: Icon(
+                    valid ? Icons.check_circle : Icons.cancel,
+                    color: valid ? Colors.green : Colors.red,
+                  ),
+                  onPressed: () {}),
+
+          //suffixText: obscureTxt ? "FORGOT" : null,
           suffixStyle:
               GoogleFonts.alegreya(fontSize: 15, color: Color(0xFF0051FF)),
           filled: true,
