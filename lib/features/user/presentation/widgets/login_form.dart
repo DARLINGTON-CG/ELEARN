@@ -69,22 +69,19 @@ class LoginForm extends StatelessWidget {
             SizedBox(
               height: 20,
             ),
+           
             Text(
               "Don't have an account?",
               style:
                   GoogleFonts.alegreya(fontSize: 18, color: Color(0xFFFFFFFF)),
             ),
-            RawMaterialButton(
-              onPressed: () {},
-              // onPressed: () => Navigator.of(context)
-              //     .push(MaterialPageRoute(builder: (BuildContext context) {
-              //   return RegisterPage();
-              // })),
-              child: Text(
+           TextButton(
+              child:Text(
                 "REGISTER",
                 style: GoogleFonts.alegreya(
                     fontSize: 15, color: Color(0xFF4E5EE4)),
               ),
+              onPressed: (){},
             ),
             BlocBuilder<LoginCubit, LoginState>(
               buildWhen: (previous, current) =>

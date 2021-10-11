@@ -33,7 +33,7 @@ class InputField extends StatelessWidget {
                 onPressed: () {}),
             onTap: () {},
           ),
-          suffixText: obscureTxt ? "SEE" : null,
+          suffixText: obscureTxt ? "FORGOT" : null,
           suffixStyle:
               GoogleFonts.alegreya(fontSize: 15, color: Color(0xFF0051FF)),
           filled: true,

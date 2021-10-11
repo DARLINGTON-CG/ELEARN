@@ -14,32 +14,37 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: Color(0xFF171531),
       resizeToAvoidBottomInset: false,
-      bottomNavigationBar:  ClipRRect(
-      borderRadius: BorderRadius.only(
-        topRight: Radius.circular(15),
-        topLeft: Radius.circular(15),
-      ),child:BottomNavigationBar(
-        backgroundColor: Colors.grey.withOpacity(0.2),
-        type: BottomNavigationBarType.fixed,
-        currentIndex: 2,
-        selectedItemColor: Color(0xFF5468FF),
-        unselectedItemColor: Color(0xFFFFFFFF),
-        selectedLabelStyle:
-            GoogleFonts.alegreya(fontSize: 15, color: Color(0xFF5468FF)),
-        unselectedLabelStyle:
-            GoogleFonts.alegreya(fontSize: 15, color: Color(0xFFFFFFFF)),
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.space_dashboard_rounded),
-            tooltip: "Home",
-            label: '',
+      bottomNavigationBar: ClipRRect(
+          borderRadius: BorderRadius.only(
+            topRight: Radius.circular(15),
+            topLeft: Radius.circular(15),
           ),
-          BottomNavigationBarItem(icon: Icon(Icons.auto_stories_sharp), label: '',tooltip: "Courses"),
-          BottomNavigationBarItem(icon: Icon(Icons.quiz_rounded), label: '',tooltip: "Quiz"),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.verified_user), label: '',tooltip: "User"),
-        ],
-      )),
+          child: BottomNavigationBar(
+            backgroundColor: Colors.grey.withOpacity(0.2),
+            type: BottomNavigationBarType.fixed,
+            currentIndex: 2,
+            selectedItemColor: Color(0xFF5468FF),
+            unselectedItemColor: Color(0xFFFFFFFF),
+            selectedLabelStyle:
+                GoogleFonts.alegreya(fontSize: 15, color: Color(0xFF5468FF)),
+            unselectedLabelStyle:
+                GoogleFonts.alegreya(fontSize: 15, color: Color(0xFFFFFFFF)),
+            items: [
+              BottomNavigationBarItem(
+                icon: Icon(Icons.space_dashboard_rounded),
+                tooltip: "Home",
+                label: '',
+              ),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.auto_stories_sharp),
+                  label: '',
+                  tooltip: "Courses"),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.quiz_rounded), label: '', tooltip: "Quiz"),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.verified_user), label: '', tooltip: "User"),
+            ],
+          )),
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.all(10),
@@ -48,7 +53,7 @@ class _HomePageState extends State<HomePage> {
             children: [
               Container(
                   margin: EdgeInsets.only(left: 60, right: 60),
-                  padding: EdgeInsets.all(10),
+                  padding: EdgeInsets.all(12),
                   decoration: BoxDecoration(
                       color: Colors.grey.withOpacity(0.2),
                       borderRadius: BorderRadius.horizontal(
@@ -58,7 +63,6 @@ class _HomePageState extends State<HomePage> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         Container(
-                          decoration: BoxDecoration(),
                           child: Text(
                             'ALL',
                             style: TextStyle(color: Colors.white),

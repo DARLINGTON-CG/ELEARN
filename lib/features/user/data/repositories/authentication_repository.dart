@@ -9,6 +9,8 @@ class LogInWithGoogleFailure implements Exception {}
 
 class LogOutFailure implements Exception {}
 
+class ResetPasswordFailure implements Exception {}
+
 class AuthenticationRepository {
   final FirebaseAuth? firebaseAuth;
   AuthenticationRepository({required this.firebaseAuth});
@@ -41,6 +43,23 @@ class AuthenticationRepository {
           .signInWithEmailAndPassword(email: email, password: password);
     } on Exception {
       throw LogInWithEmailAndPasswordFailure();
+    }
+  }
+
+  Future<void> resetPassword({required String email}) async {
+    try {
+      await firebaseAuth!.sendPasswordResetEmail(email: email);
+    } on Exception {
+      throw ResetPasswordFailure();
+    }
+  }
+
+  Future<void> confirmPasswordReset({required String code,required newPassword}) async
+  {
+     try {
+      await firebaseAuth!.confirmPasswordReset(code: code, newPassword: newPassword);
+    } on Exception {
+      throw ResetPasswordFailure();
     }
   }
 

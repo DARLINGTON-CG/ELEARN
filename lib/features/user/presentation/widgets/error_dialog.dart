@@ -15,6 +15,7 @@ void showErrorDialogBox( BuildContext context,String header,String message) {
             opacity: anim1.value,
             child: AlertDialog(
               backgroundColor: Color(0xFF171531),
+              elevation:0.0,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15)),
               content: Container(
