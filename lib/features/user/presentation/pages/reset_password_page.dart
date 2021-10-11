@@ -1,5 +1,12 @@
-import 'package:e_learn/features/user/presentation/widgets/header.dart';
+import 'package:e_learn/features/user/data/repositories/authentication_repository.dart';
+import 'package:e_learn/features/user/presentation/cubit_password_reset/reset_cubit.dart';
+import 'package:e_learn/features/user/presentation/cubit_password_reset/reset_state.dart';
+import 'package:e_learn/features/user/presentation/widgets/continue_button.dart';
+import 'package:e_learn/features/user/presentation/widgets/error_dialog.dart';
+import 'package:e_learn/features/user/presentation/widgets/input_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:formz/formz.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ResetPasswordPage extends StatelessWidget {
@@ -16,26 +23,85 @@ class ResetPasswordPage extends StatelessWidget {
           centerTitle: true,
           title: Text("Reset Password",
               style: GoogleFonts.alegreya(
-                  fontSize: 20,
+                  fontSize: 21,
                   color: Color(0xFFFFFFFF),
                   fontWeight: FontWeight.bold)),
         ),
         resizeToAvoidBottomInset: false,
         body: SafeArea(
           child: Padding(
-              padding: EdgeInsets.all(10),
+              padding: EdgeInsets.only(left: 20, right: 20, top: 2),
               child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    //  InputField(
-                    //   label: "Email",
-                    //   obscureTxt: false,
-                    //   key: Key("LoginWithEmailField"),
-                    //   func: (email) =>
-                    //       context.read<LoginCubit>().emailChanged(email),
-                    //   valid: state.email.valid,
-                    //   round: false);
+                    Text(
+                      "Enter your email address below\nto receive a reset link.",
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.alegreya(
+                          fontSize: 18, color: Color(0xFFFFFFFF)),
+                    ),
+                    SizedBox(
+                      height: 23,
+                    ),
+                    BlocProvider(
+                        create: (_) => ResetCubit(
+                            context.read<AuthenticationRepository>()),
+                        child: BlocListener<ResetCubit, ResetState>(
+                          listener: (context, state) {
+                            if (state.status.isSubmissionFailure) {
+                              showErrorDialogBox(context, "Reset Failure",
+                                  "Please check your email and try again");
+                            } else if (state.status.isSubmissionSuccess) {
+                              Navigator.of(context).pop();
+                            }
+                          },
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 10),
+                            child: Column(children: [
+                              BlocBuilder<ResetCubit, ResetState>(
+                                  buildWhen: (previous, current) =>
+                                      previous.email != current.email,
+                                  builder: (context, state) => InputField(
+                                      label: "Email",
+                                      passwordField: false,
+                                      obscureTxt: false,
+                                      key: Key("ResetWithEmailField"),
+                                      func: (email) => context
+                                          .read<ResetCubit>()
+                                          .emailChanged(email),
+                                      valid: state.email.valid,
+                                      round: true)),
+                              SizedBox(height: 15),
+                              Text(
+                                "Make sure to provide the email\nused for registration.",
+                                style: GoogleFonts.alegreya(
+                                    fontSize: 16, color: Color(0xFFFFFFFF)),
+                                textAlign: TextAlign.center,
+                              ),
+                              SizedBox(height: 15),
+                              BlocBuilder<ResetCubit, ResetState>(
+                                  buildWhen: (previous, current) =>
+                                      previous.status != current.status,
+                                  builder: (context, state) =>
+                                      state.status.isSubmissionInProgress
+                                          ? const CircularProgressIndicator(
+                                              color: Color(0xFF5468FF),
+                                            )
+                                          : LoginButton(
+                                              key: Key("ResetFormRaisedButton"),
+                                              func: state.status.isValidated
+                                                  ? () {
+                                                      context
+                                                          .read<ResetCubit>()
+                                                          .sendResetRequest();
+                                                    }
+                                                  : () => print(
+                                                      "\n\nNot Validated\n\n"),
+                                            ))
+                            ]),
+                          ),
+                        ))
                   ])),
         ));
   }

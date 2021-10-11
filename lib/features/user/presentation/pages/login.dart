@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../data/repositories/authentication_repository.dart';
-import '../cubit/login_cubit.dart';
-import '../widgets/header.dart';
+import '../cubit_login/login_cubit.dart';
 import '../widgets/login_form.dart';
 
 class Login extends StatefulWidget {
@@ -14,22 +14,36 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Color(0xFF171531),
         resizeToAvoidBottomInset: false,
+        appBar: AppBar(
+          elevation: 0.0,
+          backgroundColor: Color(0xFF171531),
+          centerTitle: true,
+          title: Text("Log In",
+              style: GoogleFonts.alegreya(
+                  fontSize: 22,
+                  color: Color(0xFFFFFFFF),
+                  fontWeight: FontWeight.bold)),
+        ),
         body: SafeArea(
           child: Padding(
-              padding: EdgeInsets.all(20),
+              padding: EdgeInsets.only(left: 20, right: 20, top: 2),
               child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Header(
-                      head: "Log In",
-                      text: "Enter your credentials to continue.",
+                    Text(
+                      "Enter your credentials to\ncontinue.",
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.alegreya(
+                          fontSize: 18, color: Color(0xFFFFFFFF)),
+                    ),
+                    SizedBox(
+                      height: 23,
                     ),
                     BlocProvider(
                       create: (_) =>

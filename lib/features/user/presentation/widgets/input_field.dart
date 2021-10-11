@@ -2,44 +2,45 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class InputField extends StatelessWidget {
+class InputField extends StatefulWidget {
   final String label;
-  final bool obscureTxt;
+  final bool passwordField;
   final bool round;
   final func;
   final bool valid;
+  bool obscureTxt;
   final VoidCallback? forgotFunc;
 
-  const InputField(
+  InputField(
       {Key? key,
       required this.label,
-      required this.obscureTxt,
+      required this.passwordField,
       required this.func,
       required this.valid,
+      required this.obscureTxt,
       required this.round,
-      this.forgotFunc = null
-      }
-     
-      )
+      this.forgotFunc = null})
       : super(key: key);
 
   @override
+  State<InputField> createState() => _InputFieldState();
+}
+
+class _InputFieldState extends State<InputField> {
+  @override
   Widget build(BuildContext context) {
     return TextField(
-      key: this.key,
-      obscureText: obscureTxt,
+      key: widget.key,
+      obscureText: widget.obscureTxt,
       style: TextStyle(color: Colors.white),
-      onChanged: func,
+      onChanged: widget.func,
       decoration: InputDecoration(
           fillColor: Colors.grey.withOpacity(0.2),
-          suffixIcon: obscureTxt
+          suffixIcon: widget.passwordField
               ? Wrap(
                   children: [
-                    // IconButton(
-                    //   icon: Icon(Icons.mark_chat_unread_outlined,color:Color(0xFF0051FF)),
-                    //   onPressed: () {}),
                     TextButton(
-                        onPressed:forgotFunc,
+                        onPressed: widget.forgotFunc,
                         child: Text(
                           "FORGOT",
                           style: GoogleFonts.alegreya(
@@ -47,16 +48,22 @@ class InputField extends StatelessWidget {
                         )),
                     IconButton(
                         icon: Icon(
-                          valid ? Icons.visibility_off : Icons.visibility_off,
-                          color: valid ? Colors.green : Colors.red,
+                          widget.obscureTxt
+                              ? Icons.visibility_off
+                              : Icons.visibility,
+                          color: widget.valid ? Colors.green : Colors.red,
                         ),
-                        onPressed: () {}),
+                        onPressed: () {
+                          setState(() {
+                            widget.obscureTxt = !widget.obscureTxt;
+                          });
+                        }),
                   ],
                 )
               : IconButton(
                   icon: Icon(
-                    valid ? Icons.check_circle : Icons.cancel,
-                    color: valid ? Colors.green : Colors.red,
+                    widget.valid ? Icons.check_circle : Icons.cancel,
+                    color: widget.valid ? Colors.green : Colors.red,
                   ),
                   onPressed: () {}),
 
@@ -67,26 +74,30 @@ class InputField extends StatelessWidget {
           contentPadding: EdgeInsets.all(16.0),
           enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.vertical(
-                  top: round
+                  top: widget.round
                       ? Radius.circular(15)
-                      : (obscureTxt ? Radius.circular(0) : Radius.circular(15)),
-                  bottom: round
+                      : (widget.passwordField
+                          ? Radius.circular(0)
+                          : Radius.circular(15)),
+                  bottom: widget.round
                       ? Radius.circular(15)
-                      : (obscureTxt
+                      : (widget.passwordField
                           ? Radius.circular(15)
                           : Radius.circular(0))),
               borderSide: BorderSide(color: Colors.white.withOpacity(0.0))),
-          hintText: label,
+          hintText: widget.label,
           hintStyle:
               GoogleFonts.alegreya(fontSize: 18, color: Color(0xFFFFFFFF)),
           focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.vertical(
-                  top: round
+                  top: widget.round
                       ? Radius.circular(15)
-                      : (obscureTxt ? Radius.circular(0) : Radius.circular(15)),
-                  bottom: round
+                      : (widget.passwordField
+                          ? Radius.circular(0)
+                          : Radius.circular(15)),
+                  bottom: widget.round
                       ? Radius.circular(15)
-                      : (obscureTxt
+                      : (widget.passwordField
                           ? Radius.circular(15)
                           : Radius.circular(0))),
               borderSide: BorderSide(color: Colors.white.withOpacity(0.0)))),

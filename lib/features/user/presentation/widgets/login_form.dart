@@ -8,8 +8,8 @@ import 'package:formz/formz.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../cubit/login_cubit.dart';
-import '../cubit/login_state.dart';
+import '../cubit_login/login_cubit.dart';
+import '../cubit_login/login_state.dart';
 import 'continue_button.dart';
 import 'error_dialog.dart';
 import 'input_field.dart';
@@ -42,6 +42,7 @@ class LoginForm extends StatelessWidget {
               builder: (context, state) {
                 return InputField(
                     label: "Email",
+                    passwordField: false,
                     obscureTxt: false,
                     key: Key("LoginWithEmailField"),
                     func: (email) =>
@@ -61,6 +62,7 @@ class LoginForm extends StatelessWidget {
                   label: "Password",
                   key: Key("LoginWithPasswordField"),
                   obscureTxt: true,
+                  passwordField: true,
                   valid: state.password.valid,
                   round: false,
                   forgotFunc: () => Navigator.of(context).push(SlideUpAnim(page:ResetPasswordPage())),
