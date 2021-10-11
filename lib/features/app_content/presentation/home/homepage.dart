@@ -20,7 +20,8 @@ class _HomePageState extends State<HomePage> {
         topLeft: Radius.circular(15),
       ),child:BottomNavigationBar(
         backgroundColor: Colors.grey.withOpacity(0.2),
-        currentIndex: 0,
+        type: BottomNavigationBarType.fixed,
+        currentIndex: 2,
         selectedItemColor: Color(0xFF5468FF),
         unselectedItemColor: Color(0xFFFFFFFF),
         selectedLabelStyle:
@@ -30,11 +31,13 @@ class _HomePageState extends State<HomePage> {
         items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.space_dashboard_rounded),
+            tooltip: "Home",
             label: '',
           ),
-          BottomNavigationBarItem(icon: Icon(Icons.auto_stories_sharp), label: ''),
+          BottomNavigationBarItem(icon: Icon(Icons.auto_stories_sharp), label: '',tooltip: "Courses"),
+          BottomNavigationBarItem(icon: Icon(Icons.quiz_rounded), label: '',tooltip: "Quiz"),
           BottomNavigationBarItem(
-              icon: Icon(Icons.verified_user), label: ''),
+              icon: Icon(Icons.verified_user), label: '',tooltip: "User"),
         ],
       )),
       body: SafeArea(
