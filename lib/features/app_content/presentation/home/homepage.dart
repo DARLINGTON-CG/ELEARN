@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -13,6 +14,29 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: Color(0xFF171531),
       resizeToAvoidBottomInset: false,
+      bottomNavigationBar:  ClipRRect(
+      borderRadius: BorderRadius.only(
+        topRight: Radius.circular(15),
+        topLeft: Radius.circular(15),
+      ),child:BottomNavigationBar(
+        backgroundColor: Colors.grey.withOpacity(0.2),
+        currentIndex: 0,
+        selectedItemColor: Color(0xFF5468FF),
+        unselectedItemColor: Color(0xFFFFFFFF),
+        selectedLabelStyle:
+            GoogleFonts.alegreya(fontSize: 15, color: Color(0xFF5468FF)),
+        unselectedLabelStyle:
+            GoogleFonts.alegreya(fontSize: 15, color: Color(0xFFFFFFFF)),
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.space_dashboard_rounded),
+            label: '',
+          ),
+          BottomNavigationBarItem(icon: Icon(Icons.auto_stories_sharp), label: ''),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.verified_user), label: ''),
+        ],
+      )),
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.all(10),
