@@ -1,6 +1,6 @@
-
 import 'package:e_learn/core/page_animation/slide_up_anim.dart';
 import 'package:e_learn/features/app_content/presentation/home/homepage.dart';
+import 'package:e_learn/features/user/presentation/pages/register.dart';
 import 'package:e_learn/features/user/presentation/pages/reset_password_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,7 +20,7 @@ class LoginForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocListener<LoginCubit, LoginState>(
-      listener: (context, state)async {
+      listener: (context, state) async {
         if (state.status.isSubmissionFailure) {
           showErrorDialogBox(context, "Login Failure",
               "Please check your credentials and try again");
@@ -65,7 +65,8 @@ class LoginForm extends StatelessWidget {
                   passwordField: true,
                   valid: state.password.valid,
                   round: false,
-                  forgotFunc: () => Navigator.of(context).push(SlideUpAnim(page:ResetPasswordPage())),
+                  forgotFunc: () => Navigator.of(context)
+                      .push(SlideUpAnim(page: ResetPasswordPage())),
                   func: (password) =>
                       context.read<LoginCubit>().passwordChanged(password),
                 );
@@ -74,19 +75,21 @@ class LoginForm extends StatelessWidget {
             SizedBox(
               height: 20,
             ),
-           
             Text(
               "Don't have an account?",
               style:
-                  GoogleFonts.alegreya(fontSize: 18, color: Color(0xFFFFFFFF)),
+                  GoogleFonts.alegreya(fontSize: 16, color: Color(0xFFFFFFFF)),
             ),
-           TextButton(
-              child:Text(
+            TextButton(
+              child: Text(
                 "REGISTER",
                 style: GoogleFonts.alegreya(
                     fontSize: 15, color: Color(0xFF4E5EE4)),
               ),
-              onPressed: (){},
+              onPressed: () => Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(builder: (BuildContext context) {
+                return RegisterPage();
+              })),
             ),
             BlocBuilder<LoginCubit, LoginState>(
               buildWhen: (previous, current) =>
@@ -96,7 +99,7 @@ class LoginForm extends StatelessWidget {
                     ? const CircularProgressIndicator(
                         color: Color(0xFF5468FF),
                       )
-                    : LoginButton(
+                    : ContinueButton(
                         key: Key("LoginFormRaisedButton"),
                         func: state.status.isValidated
                             ? () {

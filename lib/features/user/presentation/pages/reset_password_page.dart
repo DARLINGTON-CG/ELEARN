@@ -88,7 +88,7 @@ class ResetPasswordPage extends StatelessWidget {
                                           ? const CircularProgressIndicator(
                                               color: Color(0xFF5468FF),
                                             )
-                                          : LoginButton(
+                                          : ContinueButton(
                                               key: Key("ResetFormRaisedButton"),
                                               func: state.status.isValidated
                                                   ? () {
