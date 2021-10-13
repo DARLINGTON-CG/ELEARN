@@ -11,7 +11,9 @@ class TextColumn extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         padding: EdgeInsets.all(15),
-        child: Column(children: [
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
           Text(
             title,
             style:

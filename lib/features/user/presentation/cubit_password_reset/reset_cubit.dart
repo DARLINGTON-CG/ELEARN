@@ -1,8 +1,9 @@
-import 'package:e_learn/features/user/data/data_sources/email.dart';
-import 'package:e_learn/features/user/data/repositories/authentication_repository.dart';
-import 'package:e_learn/features/user/presentation/cubit_password_reset/reset_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
+
+import '../../data/data_sources/email.dart';
+import '../../data/repositories/authentication_repository.dart';
+import 'reset_state.dart';
 
 class ResetCubit extends Cubit<ResetState> {
   final AuthenticationRepository authenticationRepository;

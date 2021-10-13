@@ -1,13 +1,13 @@
-import 'package:e_learn/core/page_animation/slide_up_anim.dart';
-import 'package:e_learn/features/app_content/presentation/home/homepage.dart';
-import 'package:e_learn/features/user/presentation/pages/register.dart';
-import 'package:e_learn/features/user/presentation/pages/reset_password_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../../core/page_animation/slide_up_anim.dart';
+import '../../../app_content/presentation/home/homepage.dart';
+import '../pages/register.dart';
+import '../pages/reset_password_page.dart';
 import '../cubit_login/login_cubit.dart';
 import '../cubit_login/login_state.dart';
 import 'continue_button.dart';
@@ -103,6 +103,7 @@ class LoginForm extends StatelessWidget {
                         key: Key("LoginFormRaisedButton"),
                         func: state.status.isValidated
                             ? () {
+                               
                                 // showErrorDialogBox(context, "No connection",
                                 //     "Please check your internet connection");
                                 context

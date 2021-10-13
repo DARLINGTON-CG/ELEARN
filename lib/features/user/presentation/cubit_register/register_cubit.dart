@@ -1,10 +1,11 @@
-import 'package:e_learn/features/user/data/data_sources/confirmed_password.dart';
-import 'package:e_learn/features/user/data/data_sources/email.dart';
-import 'package:e_learn/features/user/data/data_sources/password.dart';
-import 'package:e_learn/features/user/data/repositories/authentication_repository.dart';
-import 'package:e_learn/features/user/presentation/cubit_register/register_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
+
+import '../../data/data_sources/confirmed_password.dart';
+import '../../data/data_sources/email.dart';
+import '../../data/data_sources/password.dart';
+import '../../data/repositories/authentication_repository.dart';
+import 'register_state.dart';
 
 class RegisterCubit extends Cubit<RegisterState> {
   RegisterCubit(this.authenticationRepository) : super(const RegisterState());

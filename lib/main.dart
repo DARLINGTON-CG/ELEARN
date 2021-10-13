@@ -1,4 +1,3 @@
-import 'features/user/presentation/pages/login.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'core/app/bloc/app_bloc.dart';
-
+import 'features/user/presentation/pages/login.dart';
 import 'features/app_content/presentation/home/homepage.dart';
 import 'features/onboarding/pages/onboarding.dart';
 import 'features/user/data/repositories/authentication_repository.dart';

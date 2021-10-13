@@ -1,6 +1,7 @@
-import 'package:e_learn/features/user/data/data_sources/email.dart';
 import 'package:equatable/equatable.dart';
 import 'package:formz/formz.dart';
+
+import '../../data/data_sources/email.dart';
 
 class ResetState extends Equatable {
   final Email email;

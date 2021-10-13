@@ -1,5 +1,6 @@
-import 'package:e_learn/features/user/data/models/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+
+import '../models/user_model.dart';
 
 class SignupFailure implements Exception {}
 
