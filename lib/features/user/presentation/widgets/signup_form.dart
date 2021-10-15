@@ -158,7 +158,7 @@ class _SignUpFormState extends State<SignUpForm> {
                                   "An unknown error has occured please try again later.");
                           } else {
                             showErrorDialogBox(
-                                context, "Error", "Enter valid credentials.");
+                                context, "Error", "Enter valid credentials to proceed with registration.");
                           }
                         } //context.read<RegisterCubit>().signUpFormSubmitted()
                         );
@@ -231,37 +231,6 @@ class _ConfirmPasswordInput extends StatelessWidget {
           func: (password) =>
               context.read<RegisterCubit>().confirmedPassword(password),
         );
-      },
-    );
-  }
-}
-
-class _SignUpButton extends StatelessWidget {
-  // FieldType type;
-  // _SignUpButton(this.type);
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<RegisterCubit, RegisterState>(
-      buildWhen: (previous, current) => previous.status != current.status,
-      builder: (context, state) {
-        return state.status.isSubmissionInProgress
-            ? const CircularProgressIndicator()
-            : ContinueButton(
-                key: Key('signUpForm_continue_raisedButton'),
-                func: () {
-                  // bool emailValidity =
-                  //     context.read<RegisterCubit>().emailValidity();
-                  // bool passwordValidity =
-                  //     context.read<RegisterCubit>().passwordValidity();
-                  // bool confirmPassValidity =
-                  //     context.read<RegisterCubit>().confirmPasswordValidity();
-                  // if(emailValidity &&(FieldType.Email == type))
-                  // {
-
-                  // }
-                } //context.read<RegisterCubit>().signUpFormSubmitted()
-                );
       },
     );
   }

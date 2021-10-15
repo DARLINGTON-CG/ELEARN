@@ -1,17 +1,11 @@
 import 'package:e_learn/features/user/presentation/widgets/signup_form.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:formz/formz.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../../app_content/presentation/home/homepage.dart';
 import '../../data/repositories/authentication_repository.dart';
 import '../cubit_register/register_cubit.dart';
-import '../cubit_register/register_state.dart';
-import 'login.dart';
-import '../widgets/continue_button.dart';
-import '../widgets/error_dialog.dart';
-import '../widgets/input_field.dart';
+
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({Key? key}) : super(key: key);
