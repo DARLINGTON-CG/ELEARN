@@ -37,7 +37,7 @@ class _InputFieldState extends State<InputField> {
       decoration: InputDecoration(
           fillColor: Colors.grey.withOpacity(0.2),
           suffixIcon: widget.passwordField
-              ? Wrap(
+              ?(!widget.round? Wrap(
                   children: [
                     TextButton(
                         onPressed: widget.forgotFunc,
@@ -59,7 +59,18 @@ class _InputFieldState extends State<InputField> {
                           });
                         }),
                   ],
-                )
+                ): IconButton(
+                        icon: Icon(
+                          widget.obscureTxt
+                              ? Icons.visibility_off
+                              : Icons.visibility,
+                          color: widget.valid ? Colors.green : Colors.red,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            widget.obscureTxt = !widget.obscureTxt;
+                          });
+                        }))
               : IconButton(
                   icon: Icon(
                     widget.valid ? Icons.check_circle : Icons.cancel,

@@ -22,27 +22,27 @@ class _HomePageState extends State<HomePage> {
           child: BottomNavigationBar(
             backgroundColor: Colors.grey.withOpacity(0.2),
             type: BottomNavigationBarType.fixed,
-            currentIndex: 2,
+            currentIndex: 1,
             selectedItemColor: Color(0xFF5468FF),
             unselectedItemColor: Color(0xFFFFFFFF),
             selectedLabelStyle:
-                GoogleFonts.alegreya(fontSize: 15, color: Color(0xFF5468FF)),
+                GoogleFonts.alegreya(fontSize: 12, color: Color(0xFF5468FF)),
             unselectedLabelStyle:
-                GoogleFonts.alegreya(fontSize: 15, color: Color(0xFFFFFFFF)),
+                GoogleFonts.alegreya(fontSize: 12, color: Color(0xFFFFFFFF)),
             items: [
               BottomNavigationBarItem(
                 icon: Icon(Icons.space_dashboard_rounded),
                 tooltip: "Home",
-                label: '',
+                label: 'Home',
               ),
               BottomNavigationBarItem(
                   icon: Icon(Icons.auto_stories_sharp),
-                  label: '',
+                  label: 'Courses',
                   tooltip: "Courses"),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.quiz_rounded), label: '', tooltip: "Quiz"),
+                  icon: Icon(Icons.quiz_rounded), label: 'Quiz', tooltip: "Quiz"),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.verified_user), label: '', tooltip: "User"),
+                  icon: Icon(Icons.verified_user), label: 'User', tooltip: "User"),
             ],
           )),
       body: SafeArea(

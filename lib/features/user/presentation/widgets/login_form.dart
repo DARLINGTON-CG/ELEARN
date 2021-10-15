@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../core/page_animation/slide_up_anim.dart';
@@ -23,7 +24,7 @@ class LoginForm extends StatelessWidget {
       listener: (context, state) async {
         if (state.status.isSubmissionFailure) {
           showErrorDialogBox(context, "Login Failure",
-              "Please check your credentials and try again");
+              "Please check your credentials and try again.");
         } else if (state.status.isSubmissionSuccess) {
           var prefs = await SharedPreferences.getInstance();
           prefs.setBool('authStatus', true);
@@ -102,16 +103,19 @@ class LoginForm extends StatelessWidget {
                     : ContinueButton(
                         key: Key("LoginFormRaisedButton"),
                         func: state.status.isValidated
-                            ? () {
-                               
-                                // showErrorDialogBox(context, "No connection",
-                                //     "Please check your internet connection");
-                                context
-                                    .read<LoginCubit>()
-                                    .logInWithCredentials();
+                            ? () async {
+                                bool connection =
+                                    await InternetConnectionChecker().hasConnection;
+                                if (connection == true)
+                                  context
+                                      .read<LoginCubit>()
+                                      .logInWithCredentials();
+                                else
+                                  showErrorDialogBox(context, "No connection",
+                                      "Please check your internet connection");
                               }
-                            : () => print("\n\nNot Validated\n\n"),
-                      );
+                            : () => showErrorDialogBox(context, "Error",
+                                "Please enter valid credentials\nto access account."));
               },
             )
           ],

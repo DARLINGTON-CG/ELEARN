@@ -23,6 +23,21 @@ class RegisterCubit extends Cubit<RegisterState> {
         ])));
   }
 
+  
+
+  bool emailValidity() {
+    return state.email.valid;
+  }
+
+  bool passwordValidity() {
+    return state.password.valid;
+  }
+
+  bool confirmPasswordValidity()
+  {
+    return state.confirmedPassword.valid;
+  }
+
   void passwordChanged(String value) {
     final password = Password.dirty(value);
     final confirmedPassword = ConfirmedPassword.dirty(

@@ -43,15 +43,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Text(
-                        "Start by entering your email\naddress below.",
-                        textAlign: TextAlign.center,
-                        style: GoogleFonts.alegreya(
-                            fontSize: 18, color: Color(0xFFFFFFFF)),
-                      ),
-                      SizedBox(
-                        height: 23,
-                      ),
+                  
                       BlocProvider(
                         create: (_) => RegisterCubit(
                             context.read<AuthenticationRepository>()),
