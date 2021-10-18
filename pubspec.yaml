@@ -36,6 +36,23 @@ flutter:
     - assets/images/resources.png
     - assets/images/accessibility.png
     - assets/images/megaphone.png
+    - assets/images/achiever.png
+    - assets/images/champion.png
+    - assets/images/focused.png
+    - assets/images/perfectionist.png
+    - assets/images/scholar.png
+    - assets/images/user_avatar.png
+    - assets/images/Avatar2.png
+    - assets/images/Avatar3.png
+    - assets/images/Avatar4.png
+    - assets/images/Avatar5.png
+    - assets/images/Avatar6.png
+    - assets/images/Avatar7.png
+    - assets/images/Avatar8.png
+    - assets/images/Avatar9.png
+    - assets/images/Avatar10.png
+    - assets/images/Avatar11.png
+    
   # fonts:
   #   - family: Schyler
   #     fonts:

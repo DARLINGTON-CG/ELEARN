@@ -1,5 +1,10 @@
+import 'package:e_learn/features/app_content/presentation/home/widgets/badges_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import 'widgets/friends_widget.dart';
+import 'widgets/tab_widget.dart';
+import 'widgets/user_avatar.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -22,7 +27,7 @@ class _HomePageState extends State<HomePage> {
           child: BottomNavigationBar(
             backgroundColor: Colors.grey.withOpacity(0.2),
             type: BottomNavigationBarType.fixed,
-            currentIndex: 1,
+            currentIndex: 3,
             selectedItemColor: Color(0xFF5468FF),
             unselectedItemColor: Color(0xFFFFFFFF),
             selectedLabelStyle:
@@ -40,9 +45,13 @@ class _HomePageState extends State<HomePage> {
                   label: 'Courses',
                   tooltip: "Courses"),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.quiz_rounded), label: 'Quiz', tooltip: "Quiz"),
+                  icon: Icon(Icons.quiz_rounded),
+                  label: 'Quiz',
+                  tooltip: "Quiz"),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.verified_user), label: 'User', tooltip: "User"),
+                  icon: Icon(Icons.verified_user),
+                  label: 'User',
+                  tooltip: "User"),
             ],
           )),
       body: SafeArea(
@@ -51,36 +60,24 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Container(
-                  margin: EdgeInsets.only(left: 60, right: 60),
-                  padding: EdgeInsets.all(12),
-                  decoration: BoxDecoration(
-                      color: Colors.grey.withOpacity(0.2),
-                      borderRadius: BorderRadius.horizontal(
-                          left: Radius.circular(10),
-                          right: Radius.circular(10))),
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Container(
-                          child: Text(
-                            'ALL',
-                            style: TextStyle(color: Colors.white),
-                          ),
-                        ),
-                        Container(
-                          child: Text(
-                            'STUDYING',
-                            style: TextStyle(color: Colors.greenAccent),
-                          ),
-                        ),
-                        Container(
-                          child: Text(
-                            'SAVED',
-                            style: TextStyle(color: Colors.white),
-                          ),
-                        )
-                      ])),
+              SizedBox(height: 10),
+              UserAvatar(),
+              Text("Eugene Osei",
+                  style: GoogleFonts.alegreya(
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xFFFFFFFF))),
+              Text("24,564 XP",
+                  style: GoogleFonts.alegreya(
+                      fontSize: 19, color: Color(0xABFFFFFF))),
+              SizedBox(height: 15),
+              TabWidget(
+                tabNames: ["BADGES", "FRIENDS", "SCORES"],
+              ),
+              SizedBox(height: 30),
+              SingleChildScrollView(
+                child: FriendsWidget()
+              ),
             ],
           ),
         ),
