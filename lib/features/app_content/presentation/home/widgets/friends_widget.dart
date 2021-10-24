@@ -9,7 +9,7 @@ class FriendsWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         width: 400,
-        height: 360,
+        height: 300,
         margin: EdgeInsets.symmetric(horizontal: 15),
         padding: EdgeInsets.all(20),
         decoration: BoxDecoration(

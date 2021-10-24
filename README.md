@@ -1,16 +1,9 @@
-# e_learn
+# ELEARN
 
-A new Flutter project.
+An online learning application: completely functional with payment systems and  firebase added.
 
-## Getting Started
+## Overview
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+This application has been developed to help students learn easily using their mobile phones. It has all the needed requirements the students need to get started.
+There are many courses for the students to enroll in order to gain more knowledge and understanding. Students can also discuss difficult questions with friends and find a 
+suitable solution together.
