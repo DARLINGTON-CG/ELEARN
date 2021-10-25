@@ -1,10 +1,10 @@
 import 'package:e_learn/core/page_animation/slide_up_anim.dart';
+import 'package:e_learn/features/app_content/presentation/home/widgets/user_tab_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../widgets/assesment_summary.dart';
 import '../widgets/line_chart_widget.dart';
-import '../widgets/tab_widget.dart';
 import '../widgets/user_avatar.dart';
 import 'settings_page.dart';
 
@@ -98,7 +98,7 @@ class _UserPageState extends State<UserPage> {
                     color: Color(0xFFFFFFFF))),
           ),
           bottom: PreferredSize(
-              child: TabWidget(
+              child: UserTabWidget(
                 tabNames: ["BADGES", "FRIENDS", "SCORES"],
               ),
               preferredSize: Size(MediaQuery.of(context).size.width, 90)),
