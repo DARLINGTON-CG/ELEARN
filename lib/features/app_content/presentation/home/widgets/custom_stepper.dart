@@ -118,9 +118,6 @@ class _CustomStepperState extends State<CustomStepper> with TickerProviderStateM
     return widget.steps.length - 1 == index;
   }
 
-  bool _isCurrent(int index) {
-    return widget.currentStep == index;
-  }
 
   bool _isDark() {
     return Theme.of(context).brightness == Brightness.dark;
@@ -177,7 +174,7 @@ class _CustomStepperState extends State<CustomStepper> with TickerProviderStateM
               _kTriangleHeight, // Height of 24dp-long-sided equilateral triangle.
           child: CustomPaint(
             painter: _TrianglePainter(
-              color: Colors.red,
+              color: Colors.redAccent,
             ),
             child: Align(
               alignment: const Alignment(
@@ -270,32 +267,11 @@ class _CustomStepperState extends State<CustomStepper> with TickerProviderStateM
   Widget _buildVertical() {
     return ListView(
       shrinkWrap: true,
-      physics: widget.physics,
+      physics: NeverScrollableScrollPhysics(),
       children: <Widget>[
         for (int i = 0; i < widget.steps.length; i += 1)
-          Column(
-            key: _keys[i],
-            children: <Widget>[
-              InkWell(
-                onTap: widget.steps[i].state != StepState.disabled
-                    ? () {
-                        // In the vertical case we need to scroll to the newly tapped
-                        // step.
-                        Scrollable.ensureVisible(
-                          _keys[i].currentContext!,
-                          curve: Curves.fastOutSlowIn,
-                          duration: kThemeAnimationDuration,
-                        );
-
-                        widget.onStepTapped?.call(i);
-                      }
-                    : null,
-                canRequestFocus: widget.steps[i].state != StepState.disabled,
-                child: _buildVerticalHeader(i),
-              ),
-             
-            ],
-          ),
+           _buildVerticalHeader(i),
+              
       ],
     );
   }
