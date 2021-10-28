@@ -7,7 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'core/app/bloc/app_bloc.dart';
 import 'features/user/presentation/pages/login.dart';
-import 'features/app_content/presentation/home/homepage.dart';
+import 'features/app_content/presentation/homepage.dart';
 import 'features/onboarding/pages/onboarding.dart';
 import 'features/user/data/repositories/authentication_repository.dart';
 

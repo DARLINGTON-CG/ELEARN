@@ -6,7 +6,7 @@ import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../core/page_animation/slide_up_anim.dart';
-import '../../../app_content/presentation/home/homepage.dart';
+import '../../../app_content/presentation/homepage.dart';
 import '../pages/register.dart';
 import '../pages/reset_password_page.dart';
 import '../cubit_login/login_cubit.dart';

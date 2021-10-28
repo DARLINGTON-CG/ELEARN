@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-enum CustomStepState { complete, disabled, skipped }
+import 'percent_indicator.dart';
+
+enum CustomStepState { complete, disabled, current }
 const double _kStepSize = 10.0;
 const double _kTriangleHeight = _kStepSize * 0.866025;
+
 class CustomStep {
   const CustomStep({
     required this.title,
@@ -38,7 +41,6 @@ class CustomStepper extends StatefulWidget {
   const CustomStepper({
     Key? key,
     required this.steps,
-    this.physics,
     this.currentStep = 0,
     this.onStepTapped,
     this.onStepContinue,
@@ -50,14 +52,6 @@ class CustomStepper extends StatefulWidget {
 
   final List<CustomStep> steps;
 
-  /// How the stepper's scroll view should respond to user input.
-  ///
-  /// For example, determines how the scroll view continues to
-  /// animate after the user stops dragging the scroll view.
-  ///
-  /// If the stepper is contained within another scrollable it
-  /// can be helpful to set this property to [ClampingScrollPhysics].
-  final ScrollPhysics? physics;
 
   /// The index into [steps] of the current step whose content is displayed.
   final int currentStep;
@@ -85,7 +79,8 @@ class CustomStepper extends StatefulWidget {
   State<CustomStepper> createState() => _CustomStepperState();
 }
 
-class _CustomStepperState extends State<CustomStepper> with TickerProviderStateMixin {
+class _CustomStepperState extends State<CustomStepper>
+    with TickerProviderStateMixin {
   late List<GlobalKey> _keys;
   final Map<int, CustomStepState> _oldStates = <int, CustomStepState>{};
 
@@ -118,26 +113,24 @@ class _CustomStepperState extends State<CustomStepper> with TickerProviderStateM
     return widget.steps.length - 1 == index;
   }
 
-
   bool _isDark() {
     return Theme.of(context).brightness == Brightness.dark;
   }
 
-  Widget _buildLine(bool visible) {
+  Widget _buildLine(bool visible,int index) {
     return Container(
       width: visible ? 1.0 : 0.0,
-      height: 16.0,
+      height: _isFirst(index)?15: 30.0,
       color: Colors.grey.shade400,
     );
   }
-
 
   Color _circleColor(int index) {
     final ColorScheme colorScheme = Theme.of(context).colorScheme;
     if (!_isDark()) {
       return widget.steps[index].isActive
           ? Color(0xFF00FFDD)
-          :Colors.grey.withOpacity(0.2);
+          : Colors.grey.withOpacity(0.2);
     } else {
       return widget.steps[index].isActive
           ? colorScheme.secondary
@@ -157,12 +150,11 @@ class _CustomStepperState extends State<CustomStepper> with TickerProviderStateM
           color: _circleColor(index),
           shape: BoxShape.circle,
         ),
-       
       ),
     );
   }
 
-  Widget _buildTriangle(int index, bool oldState) {
+  Widget _buildCheck(bool oldState) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 8.0),
       width: _kStepSize,
@@ -173,13 +165,12 @@ class _CustomStepperState extends State<CustomStepper> with TickerProviderStateM
           height:
               _kTriangleHeight, // Height of 24dp-long-sided equilateral triangle.
           child: CustomPaint(
-            painter: _TrianglePainter(
-              color: Colors.redAccent,
+            painter: _BuildCheckPainter(
+              color:  Color(0xFF00FFDD),
             ),
             child: Align(
               alignment: const Alignment(
                   0.0, 0.8), // 0.8 looks better than the geometrical 0.33.
-              
             ),
           ),
         ),
@@ -188,46 +179,34 @@ class _CustomStepperState extends State<CustomStepper> with TickerProviderStateM
   }
 
   Widget _buildIcon(int index) {
-    if (widget.steps[index].state != _oldStates[index]) {
-      return AnimatedCrossFade(
-        firstChild: _buildCircle(index, true),
-        secondChild: _buildTriangle(index, true),
-        firstCurve: const Interval(0.0, 0.6, curve: Curves.fastOutSlowIn),
-        secondCurve: const Interval(0.4, 1.0, curve: Curves.fastOutSlowIn),
-        sizeCurve: Curves.fastOutSlowIn,
-        crossFadeState: widget.steps[index].state == CustomStepState.skipped
-            ? CrossFadeState.showSecond
-            : CrossFadeState.showFirst,
-        duration: kThemeAnimationDuration,
-      );
-    } else {
-      if (widget.steps[index].state != CustomStepState.skipped)
-        return _buildCircle(index, false);
-      else
-        return _buildTriangle(index, false);
-    }
+    if (widget.steps[index].state == CustomStepState.complete)
+      return _buildCheck(false);
+    else 
+      return _buildCircle(index, false);
+    
   }
-
 
   Widget _buildHeaderText(int index) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-        AnimatedDefaultTextStyle(
-          style: GoogleFonts.alegreya(
-                                        fontSize: 19, fontWeight: FontWeight.bold,color: Color(0xFFFFFFFF)),
-                                  
-          duration: kThemeAnimationDuration,
-          curve: Curves.fastOutSlowIn,
-          child: widget.steps[index].title,
-        ),
+         AnimatedDefaultTextStyle(
+            style: GoogleFonts.alegreya(
+                fontSize: 19,
+                fontWeight: FontWeight.bold,
+                color: Color(0xFFFFFFFF)),
+            duration: kThemeAnimationDuration,
+            curve: Curves.fastOutSlowIn,
+            child: widget.steps[index].title,
+          ),
+        
         if (widget.steps[index].subtitle != null)
           Container(
             margin: const EdgeInsets.only(top: 2.0),
             child: AnimatedDefaultTextStyle(
-              style: GoogleFonts.alegreya(
-                                        fontSize: 16, color: Color(0xABFFFFFF)),
+              style:
+                  GoogleFonts.alegreya(fontSize: 16, color: Color(0xABFFFFFF)),
               duration: kThemeAnimationDuration,
               curve: Curves.fastOutSlowIn,
               child: widget.steps[index].subtitle!,
@@ -241,15 +220,32 @@ class _CustomStepperState extends State<CustomStepper> with TickerProviderStateM
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 24.0),
       child: Row(
-        
+        mainAxisAlignment:MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Column(
             children: <Widget>[
               // Line parts are always added in order for the ink splash to
               // flood the tips of the connector lines.
-              _buildLine(!_isFirst(index)),
-              _buildIcon(index),
-              _buildLine(!_isLast(index)),
+              (_isFirst(index))?
+                   CircularPercentIndicator(
+                        radius: 30.0,
+                        backgroundColor: Colors.grey.withOpacity(0.2),
+                        circularStrokeCap: CircularStrokeCap.round,
+                        lineWidth: 4.0,
+                        percent: 0.67,
+                        progressColor: Color(0xFF00FFDD),
+                      ): Padding(
+                        padding: const EdgeInsets.only(left:10,right: 10),
+                        child: _buildIcon(index),
+                      ),
+             Padding(
+                padding:_isLast(index)?const EdgeInsets.only(left:10):const EdgeInsets.all(0),
+                child: _buildLine(!_isLast(index),index),
+              ),
+             
+              
+              
             ],
           ),
           Expanded(
@@ -263,15 +259,14 @@ class _CustomStepperState extends State<CustomStepper> with TickerProviderStateM
     );
   }
 
-
   Widget _buildVertical() {
     return ListView(
       shrinkWrap: true,
+      
       physics: NeverScrollableScrollPhysics(),
       children: <Widget>[
         for (int i = 0; i < widget.steps.length; i += 1)
-           _buildVerticalHeader(i),
-              
+          _buildVerticalHeader(i),
       ],
     );
   }
@@ -282,10 +277,8 @@ class _CustomStepperState extends State<CustomStepper> with TickerProviderStateM
   }
 }
 
-// Paints a triangle whose base is the bottom of the bounding rectangle and its
-// top vertex the middle of its top.
-class _TrianglePainter extends CustomPainter {
-  _TrianglePainter({
+class _BuildCheckPainter extends CustomPainter {
+  _BuildCheckPainter({
     required this.color,
   });
 
@@ -295,24 +288,25 @@ class _TrianglePainter extends CustomPainter {
   bool hitTest(Offset point) => true; // Hitting the rectangle is fine enough.
 
   @override
-  bool shouldRepaint(_TrianglePainter oldPainter) {
+  bool shouldRepaint(_BuildCheckPainter oldPainter) {
     return oldPainter.color != color;
   }
 
   @override
   void paint(Canvas canvas, Size size) {
-    final double base = size.width;
-    final double halfBase = size.width / 2.0;
-    final double height = size.height;
-    final List<Offset> points = <Offset>[
-      Offset(0.0, height),
-      Offset(base, height),
-      Offset(halfBase, 0.0),
-    ];
+
+
+    final paint = Paint();
+    paint.color = color;
+    paint.strokeWidth = 3;
+     paint.style = PaintingStyle.stroke;
+      paint.strokeJoin = StrokeJoin.round;
+    paint.strokeCap = StrokeCap.round;
 
     canvas.drawPath(
-      Path()..addPolygon(points, true),
-      Paint()..color = color,
-    );
-  }
+      Path()..moveTo(0, size.height / 1.5)
+            ..lineTo(size.width / 2, size.height)
+            ..lineTo(size.width , 0)
+      , paint);
+    }
 }

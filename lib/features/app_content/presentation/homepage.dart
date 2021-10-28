@@ -1,12 +1,10 @@
-import 'package:e_learn/features/app_content/presentation/home/pages/quiz.dart';
-import 'package:e_learn/features/app_content/presentation/home/widgets/badges_widget.dart';
-import 'package:e_learn/features/app_content/presentation/home/widgets/linear_progress.dart';
+import 'package:e_learn/features/app_content/presentation/quiz/quiz.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
-import '../course/courses.dart';
-import 'pages/home.dart';
-import 'pages/user_page.dart';
+
+import 'course/courses.dart';
+import 'home/home.dart';
+import 'profile/user_page.dart';
 
 import 'dart:ui';
 

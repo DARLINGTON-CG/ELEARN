@@ -9,14 +9,15 @@ class FriendsWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         width: 400,
-        height: 300,
-        margin: EdgeInsets.symmetric(horizontal: 15),
+        height: 700,
+        margin: EdgeInsets.all(20),
         padding: EdgeInsets.all(20),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           color: Colors.grey.withOpacity(0.2),
         ),
-        child: ListView(
+        child: Column(
+          mainAxisAlignment:MainAxisAlignment.center,
           children: [
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
