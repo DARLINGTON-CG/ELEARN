@@ -1,3 +1,4 @@
+import 'package:e_learn/features/user/presentation/widgets/fade_slide_trans.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -13,7 +14,49 @@ class Login extends StatefulWidget {
   _LoginState createState() => _LoginState();
 }
 
-class _LoginState extends State<Login> {
+class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
+  late AnimationController _animationController;
+  late Animation<double> _headerTextAnimation;
+  late Animation<double> _formElementAnimation;
+
+  
+
+  @override
+  void initState() {
+    super.initState();
+    _animationController = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 1600),
+    );
+
+    var fadeSlideTween = Tween<double>(begin: 0.0, end: 1.0);
+    
+    _headerTextAnimation = fadeSlideTween.animate(CurvedAnimation(
+      parent: _animationController,
+      curve: Interval(
+        0.2,
+        0.5,
+        curve: Curves.easeInOut,
+      ),
+    ));
+    _formElementAnimation = fadeSlideTween.animate(CurvedAnimation(
+      parent: _animationController,
+      curve: Interval(
+        0.6,
+        1.0,
+        curve: Curves.easeInOut,
+      ),
+    ));
+
+    _animationController.forward();
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,11 +66,13 @@ class _LoginState extends State<Login> {
           elevation: 0.0,
           backgroundColor: Color(0xFF171531),
           centerTitle: true,
-          title: Text("Log In",
+          title:  FadeSlideTransition(
+                      animation: _headerTextAnimation,
+                      additionalOffset: 0.0,child:Text("Log In",
               style: GoogleFonts.alegreya(
                   fontSize: 22,
                   color: Color(0xFFFFFFFF),
-                  fontWeight: FontWeight.bold)),
+                  fontWeight: FontWeight.bold))),
         ),
         body: SafeArea(
           child: Padding(
@@ -36,11 +81,15 @@ class _LoginState extends State<Login> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text(
-                      "Enter your credentials to\ncontinue.",
-                      textAlign: TextAlign.center,
-                      style: GoogleFonts.alegreya(
-                          fontSize: 18, color: Color(0xFFFFFFFF)),
+                    FadeSlideTransition(
+                      animation: _formElementAnimation,
+                      additionalOffset: 0.0,
+                      child: Text(
+                        "Enter your credentials to\ncontinue.",
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.alegreya(
+                            fontSize: 18, color: Color(0xFFFFFFFF)),
+                      ),
                     ),
                     SizedBox(
                       height: 23,
@@ -48,7 +97,9 @@ class _LoginState extends State<Login> {
                     BlocProvider(
                       create: (_) =>
                           LoginCubit(context.read<AuthenticationRepository>()),
-                      child: const LoginForm(),
+                      child:  LoginForm(
+                        formAnimation: _formElementAnimation,
+                      ),
                     ),
                   ])),
         ));

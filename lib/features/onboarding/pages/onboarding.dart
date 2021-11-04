@@ -21,18 +21,33 @@ class _OnboardingState extends State<Onboarding> with TickerProviderStateMixin {
   int pageNumber = 1;
   late AnimationController _animationController;
   late Animation<Offset> _slideAnimation;
+  late AnimationController _rippleAnimationController;
+  late Animation<double> _rippleAnimation;
 
   @override
   void initState() {
     super.initState();
     _animationController =
         AnimationController(vsync: this, duration: Duration(milliseconds: 600));
+    _rippleAnimationController = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 400),
+    );
+
+    _rippleAnimation = Tween<double>(
+      begin: 0.0,
+      end: widget.screenHeight,
+    ).animate(CurvedAnimation(
+      parent: _rippleAnimationController,
+      curve: Curves.easeIn,
+    ));
     _setSlideOutAnimation();
   }
 
   @override
   void dispose() {
     _animationController.dispose();
+    _rippleAnimationController.dispose();
     super.dispose();
   }
 
@@ -125,6 +140,7 @@ class _OnboardingState extends State<Onboarding> with TickerProviderStateMixin {
   Future<void> _gotoLoginPage() async {
     var prefs = await SharedPreferences.getInstance();
     prefs.setBool('firstTime', false);
+    await _rippleAnimationController.forward();
     Navigator.of(context)
         .pushReplacement(MaterialPageRoute(builder: (_) => Login()));
   }
@@ -134,40 +150,82 @@ class _OnboardingState extends State<Onboarding> with TickerProviderStateMixin {
     return Scaffold(
       backgroundColor: Color(0xFF01011D),
       resizeToAvoidBottomInset: false,
-      body: SafeArea(
+      body: Stack(children: [
+        SafeArea(
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-        Align(
-          alignment: Alignment.topRight,
-          child: RawMaterialButton(
-            onPressed: () async => await _gotoLoginPage(),
-            child: Text(
-              "Skip",
-              style: GoogleFonts.alegreya(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xFFFFFFFF)),
+            Align(
+              alignment: Alignment.topRight,
+              child: RawMaterialButton(
+                onPressed: () {
+                  _gotoLoginPage();
+                },
+                child: Text(
+                  "Skip",
+                  style: GoogleFonts.alegreya(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xFFFFFFFF)),
+                ),
+              ),
             ),
-          ),
-        ),
-        SizedBox(height: 90),
-        _getPage(),
-        SizedBox(
-          height: 20,
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            PageIndicator(pageNumber),
+            SizedBox(height: 90),
+            _getPage(),
             SizedBox(
-              width: 10,
+              height: 20,
             ),
-            NextButton(
-              pageFunc: () async => _nextPage(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                PageIndicator(pageNumber),
+                SizedBox(
+                  width: 10,
+                ),
+                NextButton(
+                  pageFunc: () async => _nextPage(),
+                ),
+              ],
             ),
-          ],
+          ]),
         ),
-      ])),
+        AnimatedBuilder(
+          animation: _rippleAnimation,
+          builder: (_, Widget? child) {
+            return Ripple(
+              isButton: pageNumber == 3,
+              radius: _rippleAnimation.value,
+            );
+          },
+        ),
+      ]),
     );
   }
+}
+
+class Ripple extends StatelessWidget {
+  final double radius;
+  final bool isButton;
+  const Ripple({
+    required this.radius,
+    required this.isButton,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    var screenWidth = MediaQuery.of(context).size.width;
+    return Positioned(  
+      right:isButton?screenWidth-radius: (0 - radius/2),
+      top:isButton?screenWidth-radius: (0 - radius/2) ,
+      child: Container(
+        width: 2 * radius,
+        height: 2 * radius,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: Color(0xFF171531),
+        ),
+      ),
+    );
+  }
+
+ 
 }

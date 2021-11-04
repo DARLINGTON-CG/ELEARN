@@ -1,13 +1,11 @@
-import 'package:e_learn/features/app_content/presentation/quiz/quiz.dart';
-import 'package:flutter/material.dart';
+import 'dart:ui';
 
+import 'package:flutter/material.dart';
 
 import 'course/courses.dart';
 import 'home/home.dart';
 import 'profile/user_page.dart';
-
-import 'dart:ui';
-
+import 'quiz/quiz.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -19,7 +17,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
 
-  static const List<Widget> pages = <Widget>[
+  static  List<Widget> pages = <Widget>[
     Home(),
     CoursesPage(),
     QuizPage(),
@@ -41,7 +39,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+  return Scaffold(
       backgroundColor: Color(0xFF171531),
       resizeToAvoidBottomInset: false,
       bottomNavigationBar: Container(
@@ -88,37 +86,7 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ),
-      // BottomNavigationBar(
-      //       backgroundColor: Colors.grey.withOpacity(0.2),
-      //       type: BottomNavigationBarType.fixed,
-      //       currentIndex: _selectedIndex,
-      //       onTap: _onItemTapped,
-      //       selectedItemColor: Color(0xFF5468FF),
-      //       unselectedItemColor: Color(0xFFFFFFFF),
-      //       selectedLabelStyle:
-      //           GoogleFonts.alegreya(fontSize: 12, color: Color(0xFF5468FF)),
-      //       unselectedLabelStyle:
-      //           GoogleFonts.alegreya(fontSize: 12, color: Color(0xFFFFFFFF)),
-      //       items: [
-      //         BottomNavigationBarItem(
-      //           icon: Icon(Icons.space_dashboard_rounded),
-      //           tooltip: "Home",
-      //           label: 'Home',
-      //         ),
-      //         BottomNavigationBarItem(
-      //             icon: Icon(Icons.auto_stories_sharp),
-      //             label: 'Courses',
-      //             tooltip: "Courses"),
-      //         BottomNavigationBarItem(
-      //             icon: Icon(Icons.quiz_rounded),
-      //             label: 'Quiz',
-      //             tooltip: "Quiz"),
-      //         BottomNavigationBarItem(
-      //             icon: Icon(Icons.verified_user),
-      //             label: 'User',
-      //             tooltip: "User"),
-      //       ],
-      //     ),
+      
 
       body: SafeArea(
           child: IndexedStack(

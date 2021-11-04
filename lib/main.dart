@@ -6,15 +6,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'core/app/bloc/app_bloc.dart';
-import 'features/user/presentation/pages/login.dart';
 import 'features/app_content/presentation/homepage.dart';
 import 'features/onboarding/pages/onboarding.dart';
 import 'features/user/data/repositories/authentication_repository.dart';
+import 'features/user/presentation/pages/login.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(statusBarColor: Colors.transparent));
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   await Firebase.initializeApp();
   final authenticationRepository = AuthenticationRepository(
     firebaseAuth: FirebaseAuth.instance,
@@ -53,6 +54,7 @@ class App extends StatelessWidget {
           title: 'ELearn',
           home: Builder(builder: (BuildContext context) {
             double screenHeight = MediaQuery.of(context).size.height;
+
             if (firstTimeStatus)
               return Onboarding(screenHeight: screenHeight);
             else if (authStatus)

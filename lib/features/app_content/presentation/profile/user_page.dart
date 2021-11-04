@@ -4,6 +4,7 @@ import 'package:e_learn/features/app_content/presentation/widgets/assesment_summ
 import 'package:e_learn/features/app_content/presentation/widgets/line_chart_widget.dart';
 import 'package:e_learn/features/app_content/presentation/widgets/user_avatar.dart';
 import 'package:e_learn/features/app_content/presentation/widgets/user_tab_widget.dart';
+import 'package:e_learn/features/app_content/repository/course_repository.dart';
 import 'package:e_learn/features/app_content/state/user_states/user_tab_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -95,7 +96,8 @@ class _UserPageState extends State<UserPage> {
             centerTitle: true,
             actions: [
               IconButton(
-                  onPressed: () => Navigator.of(context)
+                  onPressed: ()
+                  => Navigator.of(context)
                       .push(SlideUpAnim(page: SettingsPage())),
                   icon: Icon(Icons.settings))
             ],
@@ -132,8 +134,7 @@ class _UserPageState extends State<UserPage> {
               //Center(child: UserAvatar()),
             ),
           ),
-
-           BlocBuilder<UserTabCubit, UserTabCubitState>(
+          BlocBuilder<UserTabCubit, UserTabCubitState>(
               buildWhen: (previous, current) =>
                   previous.activeIndex != current.activeIndex,
               builder: (context, state) {

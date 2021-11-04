@@ -1,17 +1,18 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:e_learn/features/app_content/models/course_model.dart';
-import 'package:equatable/equatable.dart';
+import '../models/course_model.dart';
 
-class CourseRepository extends Equatable {
-  // Future<void> getCourseFromFirebase() async {
-  //   final courseCollection =
-  //       await FirebaseFirestore.instance.collection('course').
-  //       withConverter(fromFirestore:(snapshots,_)=> CourseModel.fromJson(snapshots.data()!),
-  //                     toFirestore: (course,_) => course.toJson());
-        
-  //   print(courseCollection);
-  // }
+import 'course_repo_abstract.dart';
+
+class FirebaseCourseRepository implements CourseRepository {
+  final _courseCollection = FirebaseFirestore.instance.collection("course");
 
   @override
-  List<Object?> get props => [];
+ Stream<List<CourseModel>> getCourses()  {
+    return _courseCollection
+        .snapshots()
+        .map((querysnaps) => querysnaps.docs.map((doc) {
+              final docData = doc.data();
+              return CourseModel.fromJson(docData);
+            }).toList());
+  }
 }

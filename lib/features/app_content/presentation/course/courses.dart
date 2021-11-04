@@ -1,9 +1,7 @@
-
 import 'package:e_learn/features/app_content/presentation/widgets/tab_widget.dart';
 import 'package:e_learn/features/app_content/state/courses_states/tab_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 
 import 'all_courses.dart';
 import 'saved.dart';
@@ -17,7 +15,6 @@ class CoursesPage extends StatefulWidget {
 }
 
 class _CoursesPageState extends State<CoursesPage> {
-  
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -51,7 +48,6 @@ class _CoursesPageState extends State<CoursesPage> {
                         child: Text("${state.activeIndex}")),
                   );
               }),
-
           BlocBuilder<TabCubit, TabCubitState>(
               buildWhen: (previous, current) =>
                   previous.activeIndex != current.activeIndex,
@@ -65,7 +61,6 @@ class _CoursesPageState extends State<CoursesPage> {
                 else
                   return SliverToBoxAdapter(child: Container());
               }),
-        
         ],
       ),
     );
